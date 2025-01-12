@@ -12,6 +12,7 @@ import { install, installSync, removeSync } from 'install-optional';
 
 const __dirname = path.dirname(typeof __filename !== 'undefined' ? __filename : url.fileURLToPath(import.meta.url));
 const TMP_DIR = path.join(__dirname, '..', '..', '.tmp');
+const cwd = process.cwd();
 
 function installModule(name, dest) {
   mkdirp.sync(dest);
@@ -21,7 +22,8 @@ function installModule(name, dest) {
 
 describe('install-optional', () => {
   beforeEach(rimraf2.bind(null, TMP_DIR, { disableGlob: true }));
-  // after(rimraf2.bind(null, TMP_DIR, { disableGlob: true }));
+  afterEach(() => process.chdir(cwd));
+  after(rimraf2.bind(null, TMP_DIR, { disableGlob: true }));
 
   describe('install sync', () => {
     it('installs rollup for this platform', () => {
