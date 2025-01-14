@@ -1,1 +1,1 @@
-ignores: ["install-optional", "@types/*", "@biomejs/*"]
+ignores: ["@types/*", "install-optional", "@biomejs/*"]
