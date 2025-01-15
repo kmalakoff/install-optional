@@ -47,7 +47,7 @@ describe('install-optional', () => {
       removeSync('rollup', `${process.platform}-${process.arch}`);
       assert.ok(fs.readdirSync(path.join(modulePath, '..', '@rollup')).length === 0);
       install('rollup', `${process.platform}-${process.arch}`, (err) => {
-        if (err) return done(err);
+        if (err) return done(err.message);
         assert.ok(fs.readdirSync(path.join(modulePath, '..', '@rollup')).length > 0);
         done();
       });
