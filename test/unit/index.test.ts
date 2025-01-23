@@ -17,7 +17,7 @@ const cwd = process.cwd();
 function installModule(name, dest) {
   mkdirp.sync(dest);
   fs.writeFileSync(path.join(dest, 'package.json'), '{}', 'utf8');
-  spawn.sync('npm', ['install', name], { cwd: dest });
+  spawn.sync('npm', ['install', name], { cwd: dest, encoding: 'utf8' });
 }
 
 describe('install-optional', () => {
