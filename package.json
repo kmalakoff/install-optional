@@ -42,7 +42,7 @@
     "version": "tsds version"
   },
   "dependencies": {
-    "install-module-linked": "^1.1.49",
+    "install-module-linked": "^1.1.50",
     "queue-cb": "^1.4.15",
     "resolve": "^1.22.10"
   },
