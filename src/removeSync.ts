@@ -12,8 +12,10 @@ const existsSync = (test) => {
   }
 };
 
-export default function removeSync(moduleIdentifier, match) {
-  find(moduleIdentifier, match).map((found) => {
+import type { InstallOptions } from './types';
+
+export default function removeSync(moduleIdentifier: string, match: string, options: InstallOptions = {}) {
+  find(moduleIdentifier, match, options).map((found) => {
     const { name, nodeModules } = found;
     const nestedPath = path.join(nodeModules, name);
     if (existsSync(nestedPath)) {

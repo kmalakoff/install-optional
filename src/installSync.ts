@@ -14,8 +14,8 @@ const existsSync = (test) => {
 
 import type { InstallOptions } from './types';
 
-export default function installSync(moduleIdentifier: string, match: string, _options: InstallOptions = {}) {
-  find(moduleIdentifier, match).forEach((found) => {
+export default function installSync(moduleIdentifier: string, match: string, options: InstallOptions = {}) {
+  find(moduleIdentifier, match, options).forEach((found) => {
     const { name, version, nodeModules } = found;
     const modulePath = path.join(nodeModules, name);
     if (existsSync(modulePath)) return;
