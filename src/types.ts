@@ -5,7 +5,7 @@ export interface Found {
 }
 
 export interface InstallOptions {
-  nested?: boolean;
+  cwd?: string;
 }
 
 export type InstallCallback = (err?: Error) => void;
