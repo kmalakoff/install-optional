@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { sync as installModuleSync } from 'install-module-linked';
-import find from './lib/find';
+import find from './lib/find.js';
 
 const existsSync = (test) => {
   try {
@@ -12,7 +12,7 @@ const existsSync = (test) => {
   }
 };
 
-import type { InstallOptions } from './types';
+import type { InstallOptions } from './types.js';
 
 export default function installSync(moduleIdentifier: string, match: string, options: InstallOptions = {}) {
   find(moduleIdentifier, match, options).forEach((found) => {
