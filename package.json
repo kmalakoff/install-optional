@@ -43,7 +43,7 @@
     "version": "tsds version"
   },
   "dependencies": {
-    "function-exec-sync": "^1.2.25",
+    "function-exec-sync": "^1.2.26",
     "install-module-linked": "^1.1.69",
     "node-exec-path": "^1.0.34",
     "node-version-utils": "^1.2.18",
