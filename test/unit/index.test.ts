@@ -2,11 +2,9 @@ import assert from 'assert';
 import fs from 'fs';
 import path from 'path';
 import url from 'url';
-import spawn from 'cross-spawn-cb';
 import { install as npmInstall } from 'install-module-linked';
 import mkdirp from 'mkdirp-classic';
 import Pinkie from 'pinkie-promise';
-import rimraf2 from 'rimraf2';
 
 // @ts-ignore
 import { install, installSync, removeSync } from 'install-optional';
@@ -50,7 +48,10 @@ describe('install-optional', () => {
         removeSync('rollup', `${process.platform}-`, { cwd: TMP_DIR });
         assert.ok(fs.readdirSync(path.join(modulePath, '..', '@rollup')).length === 0);
         install('rollup', `${process.platform}-`, { cwd: TMP_DIR }, (err) => {
-          if (err) return done(err.message);
+          if (err) {
+            done(err.message);
+            return;
+          }
           assert.ok(fs.readdirSync(path.join(modulePath, '..', '@rollup')).length > 0);
           done();
         });
