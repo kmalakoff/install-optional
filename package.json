@@ -54,7 +54,6 @@
   "devDependencies": {
     "@types/mocha": "*",
     "@types/node": "*",
-    "cross-spawn-cb": "*",
     "mkdirp-classic": "*",
     "pinkie-promise": "*"
   },
