@@ -1,6 +1,6 @@
 import fs from 'fs';
-import path from 'path';
 import { sync as installModuleSync } from 'install-module-linked';
+import path from 'path';
 import find from './lib/find.js';
 
 const existsSync = (test) => {
