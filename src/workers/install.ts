@@ -2,9 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import Queue from 'queue-cb';
 import find from '../lib/find.js';
-import installModule from './installModule.cjs';
-
 import type { InstallCallback, InstallOptions } from '../types.js';
+import installModule from './installModule.cjs';
 
 export default function install(moduleIdentifier: string, match: string, options: InstallOptions, callback: InstallCallback) {
   const queue = new Queue();

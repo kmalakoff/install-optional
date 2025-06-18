@@ -1,13 +1,12 @@
 import assert from 'assert';
 import fs from 'fs';
-import path from 'path';
-import url from 'url';
 import { install as npmInstall } from 'install-module-linked';
-import mkdirp from 'mkdirp-classic';
-import Pinkie from 'pinkie-promise';
-
 // @ts-ignore
 import { install, installSync, removeSync } from 'install-optional';
+import mkdirp from 'mkdirp-classic';
+import path from 'path';
+import Pinkie from 'pinkie-promise';
+import url from 'url';
 
 const __dirname = path.dirname(typeof __filename !== 'undefined' ? __filename : url.fileURLToPath(import.meta.url));
 const TMP_DIR = path.join(__dirname, '..', '..', '.tmp');
