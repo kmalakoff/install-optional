@@ -1,6 +1,6 @@
-export type * from './types.js';
 export { default as installSync } from './installSync.js';
 export { default as removeSync } from './removeSync.js';
+export type * from './types.js';
 
 import type { InstallCallback, InstallOptions } from './types.js';
 import { default as worker } from './workers/install.js';
