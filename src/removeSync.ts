@@ -3,7 +3,7 @@ import path from 'path';
 import rimraf2 from 'rimraf2';
 import find from './lib/find.ts';
 
-const existsSync = (test) => {
+const existsSync = (test: string): boolean => {
   try {
     (fs.accessSync || fs.statSync)(test);
     return true;
