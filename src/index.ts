@@ -1,9 +1,9 @@
-export { default as installSync } from './installSync.js';
-export { default as removeSync } from './removeSync.js';
-export type * from './types.js';
+export { default as installSync } from './installSync.ts';
+export { default as removeSync } from './removeSync.ts';
+export type * from './types.ts';
 
-import type { InstallCallback, InstallOptions } from './types.js';
-import { default as worker } from './workers/install.js';
+import type { InstallCallback, InstallOptions } from './types.ts';
+import { default as worker } from './workers/install.ts';
 export function install(installString: string, match: string, options?: InstallOptions | InstallCallback, callback?: InstallCallback): undefined | Promise<string> {
   if (typeof options === 'function') {
     callback = options as InstallCallback;
