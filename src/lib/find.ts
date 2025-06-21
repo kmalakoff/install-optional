@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import resolve from 'resolve';
 
-import type { Found, InstallOptions } from '../types.js';
+import type { Found, InstallOptions } from '../types.ts';
 
 export default function find(moduleIdentifier: string, match: string, options: InstallOptions = {}): Found[] {
   const packagePath = resolve.sync(`${moduleIdentifier}/package.json`, options.cwd ? { basedir: options.cwd } : {});
