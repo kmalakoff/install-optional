@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "function-exec-sync": "^1.4.4",
-    "install-module-linked": "^1.1.88",
+    "install-module-linked": "^1.1.89",
     "node-exec-path": "^1.1.6",
     "node-version-utils": "^1.3.3",
     "queue-cb": "^1.5.5",
