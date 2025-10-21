@@ -15,7 +15,7 @@ const existsSync = (test: string): boolean => {
 import type { InstallOptions } from './types.ts';
 
 export default function removeSync(moduleIdentifier: string, match: string, options: InstallOptions = {}) {
-  find(moduleIdentifier, match, options).map((found) => {
+  find(moduleIdentifier, match, options).forEach((found) => {
     const { name, nodeModules } = found;
     const nestedPath = path.join(nodeModules, name);
     if (existsSync(nestedPath)) {
