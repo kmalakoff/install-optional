@@ -7,7 +7,7 @@ import installModule from './installModule.cjs';
 
 export default function install(moduleIdentifier: string, match: string, options: InstallOptions, callback: InstallCallback) {
   const queue = new Queue();
-  find(moduleIdentifier, match, options).forEach((found) =>
+  find(moduleIdentifier, match, options).forEach((found) => {
     queue.defer((cb) => {
       const { name, version, nodeModules } = found;
       const modulePath = path.join(nodeModules, name);
@@ -18,7 +18,7 @@ export default function install(moduleIdentifier: string, match: string, options
         console.log(`Installing: ${name}`);
         installModule(installString, nodeModules, cb);
       });
-    })
-  );
+    });
+  });
   queue.await(callback);
 }

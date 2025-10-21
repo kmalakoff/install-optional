@@ -1,7 +1,6 @@
 import assert from 'assert';
 import fs from 'fs';
 import { install as npmInstall } from 'install-module-linked';
-// @ts-ignore
 import { install, installSync, removeSync } from 'install-optional';
 import mkdirp from 'mkdirp-classic';
 import path from 'path';

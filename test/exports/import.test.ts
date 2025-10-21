@@ -1,6 +1,5 @@
 import assert from 'assert';
 
-// @ts-ignore
 import { install, installSync, removeSync } from 'install-optional';
 
 describe('exports .ts', () => {
