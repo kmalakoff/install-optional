@@ -1,6 +1,6 @@
 {
   "name": "install-optional",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Install and remove optional dependencies",
   "keywords": [
     "install",
