@@ -45,13 +45,13 @@
     "version": "tsds version"
   },
   "dependencies": {
+    "fs-remove-compat": "*",
     "function-exec-sync": "*",
     "install-module-linked": "*",
     "node-exec-path": "*",
     "node-version-utils": "*",
     "queue-cb": "*",
-    "resolve": "*",
-    "rimraf2": "*"
+    "resolve": "*"
   },
   "devDependencies": {
     "@types/mocha": "*",
