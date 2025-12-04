@@ -1,6 +1,6 @@
 import fs from 'fs';
+import { safeRmSync } from 'fs-remove-compat';
 import path from 'path';
-import rimraf2 from 'rimraf2';
 import find from './lib/find.ts';
 
 const existsSync = (test: string): boolean => {
@@ -20,7 +20,7 @@ export default function removeSync(moduleIdentifier: string, match: string, opti
     const nestedPath = path.join(nodeModules, name);
     if (existsSync(nestedPath)) {
       console.log(`Removing: ${name}`);
-      rimraf2.sync(nestedPath, { disableGlob: true });
+      safeRmSync(nestedPath);
     }
   });
 }

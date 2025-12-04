@@ -18,9 +18,9 @@ function installModule(name, dest, callback) {
 }
 
 describe('install-optional', () => {
-  // beforeEach(rimraf2.bind(null, TMP_DIR, { disableGlob: true }));
+  // beforeEach((cb) => safeRm(TMP_DIR, cb));
   afterEach(() => process.chdir(cwd));
-  // after(rimraf2.bind(null, TMP_DIR, { disableGlob: true }));
+  // after((cb) => safeRm(TMP_DIR, cb));
 
   describe('install sync', () => {
     it('installs rollup for this platform', (done) => {
