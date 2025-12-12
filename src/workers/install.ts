@@ -3,7 +3,7 @@ import path from 'path';
 import Queue from 'queue-cb';
 import find from '../lib/find.ts';
 import type { InstallCallback, InstallOptions } from '../types.ts';
-import installModule from './installModule.cjs';
+import installModule from './installModule.ts';
 
 export default function install(moduleIdentifier: string, match: string, options: InstallOptions, callback: InstallCallback) {
   const queue = new Queue();
