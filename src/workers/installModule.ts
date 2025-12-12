@@ -12,8 +12,11 @@ const major = +process.versions.node.split('.')[0];
 
 type WorkerCallback = (err: Error | null, result?: unknown) => void;
 
-let execPath: string | null = null;
+// Worker MUST always load from dist/cjs/ for old Node compatibility
+const workerPath = path.join(__dirname, '..', '..', 'cjs', 'workers', 'installModule.js');
 
+let execPath: string | null = null;
+let functionExec = null; // break dependencies
 export default function worker(installString: string, nodeModules: string, callback: WorkerCallback): void {
   if (major > 10) {
     installModule(installString, nodeModules, callback);
@@ -30,11 +33,10 @@ export default function worker(installString: string, nodeModules: string, callb
   }
 
   try {
+    if (!functionExec) functionExec = _require('function-exec-sync');
     const installPath = isWindows ? path.join(execPath, '..') : path.join(execPath, '..', '..');
     const options = spawnOptions(installPath, { execPath, callbacks: true } as Parameters<typeof spawnOptions>[1]);
-    // Worker MUST always load from dist/cjs/ for old Node compatibility
-    const workerPath = path.join(__dirname, '..', 'cjs', 'workers', 'installModule.js');
-    const res = _require('function-exec-sync')(options, workerPath, installString, nodeModules);
+    const res = functionExec(options, workerPath, installString, nodeModules);
     callback(null, res);
   } catch (err) {
     callback(err as Error);
