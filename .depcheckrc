@@ -1,1 +1,1 @@
-ignores: ["node-version-use", "ts-dev-stack", "install-optional"]
+ignores: ["node-version-use", "ts-dev-stack", "install-optional", "function-exec-sync", "node-exec-path"]

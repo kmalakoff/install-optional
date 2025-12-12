@@ -47,7 +47,7 @@ describe('install-optional', () => {
         assert.ok(fs.readdirSync(path.join(modulePath, '..', '@rollup')).length === 0);
         install('rollup', `${process.platform}-`, { cwd: TMP_DIR }, (err) => {
           if (err) {
-            done(err.message);
+            done(err);
             return;
           }
           assert.ok(fs.readdirSync(path.join(modulePath, '..', '@rollup')).length > 0);
