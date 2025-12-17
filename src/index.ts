@@ -1,4 +1,5 @@
 export { default as installSync } from './installSync.ts';
+export { default as matchesLibc } from './lib/matchesLibc.ts';
 export { default as removeSync } from './removeSync.ts';
 export type * from './types.ts';
 

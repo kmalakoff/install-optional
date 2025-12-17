@@ -16,7 +16,13 @@ export default function install(moduleIdentifier: string, match: string, options
         if (!err) return cb();
         const installString = version ? `${name}@${version}` : name;
         console.log(`Installing: ${name}`);
-        installModule(installString, nodeModules, cb);
+        installModule(installString, nodeModules, (installErr) => {
+          if (installErr) {
+            // Log and continue - don't crash on platform-incompatible packages
+            console.log(`Skipping ${name}: ${installErr.message}`);
+          }
+          cb(); // Continue to next package regardless of error
+        });
       });
     });
   });
