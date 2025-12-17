@@ -21,6 +21,11 @@ export default function installSync(moduleIdentifier: string, match: string, opt
     if (existsSync(modulePath)) return;
     console.log(`Installing: ${name}`);
     const installString = version ? `${name}@${version}` : name;
-    installModuleSync(installString, nodeModules);
+    try {
+      installModuleSync(installString, nodeModules);
+    } catch (err) {
+      // Log and continue - don't crash on platform-incompatible packages
+      console.log(`Skipping ${name}: ${(err as Error).message}`);
+    }
   });
 }
