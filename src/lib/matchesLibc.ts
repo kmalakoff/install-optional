@@ -1,17 +1,41 @@
 import Module from 'module';
+import { bindSync } from 'node-version-call-local';
 import path from 'path';
 import url from 'url';
 
-var _require = typeof require === 'undefined' ? Module.createRequire(import.meta.url) : require;
-var __dirname = path.dirname(typeof __filename !== 'undefined' ? __filename : url.fileURLToPath(import.meta.url));
+const _require = typeof require === 'undefined' ? Module.createRequire(import.meta.url) : require;
+const __dirname = path.dirname(typeof __filename !== 'undefined' ? __filename : url.fileURLToPath(import.meta.url));
+const major = +process.versions.node.split('.')[0];
+const workerPath = path.join(__dirname, '..', '..', 'cjs', 'lib', 'matchesLibc.js');
 
-var major = +process.versions.node.split('.')[0];
+let detectLibc: { familySync: () => string | null } | null = null;
 
-// Worker path for calling this same file via function-exec-sync on old Node
-var workerPath = path.join(__dirname, '..', '..', 'cjs', 'lib', 'matchesLibc.js');
+function run(packageName: string): boolean {
+  if (!detectLibc) detectLibc = _require('detect-libc');
 
-var functionExec: ((options: object, workerPath: string, ...args: unknown[]) => unknown) | null = null;
-var detectLibc: { familySync: () => string | null } | null = null;
+  // Extract libc suffix from package name
+  const match = packageName.match(/-(gnu|gnueabihf|musl)$/);
+  if (!match) return true; // No libc suffix, allow it
+
+  const pkgLibc = match[1];
+  const systemLibc = detectLibc.familySync(); // 'glibc' or 'musl' or null
+
+  // If we can't detect system libc, allow the package (be permissive)
+  if (!systemLibc) return true;
+
+  // Check if package libc matches system libc
+  if (pkgLibc === 'gnu' || pkgLibc === 'gnueabihf') {
+    return systemLibc === 'glibc';
+  }
+  if (pkgLibc === 'musl') {
+    return systemLibc === 'musl';
+  }
+
+  return true;
+}
+
+// spawnOptions: false - no node/npm spawn (library call only)
+const worker = major >= 4 ? run : bindSync('>=4', workerPath, { spawnOptions: false });
 
 /**
  * Check if a package name's libc suffix matches the system's libc.
@@ -26,35 +50,7 @@ var detectLibc: { familySync: () => string | null } | null = null;
  * matchesLibc('@swc/core-darwin-arm64')    // true (no libc suffix)
  */
 export default function matchesLibc(packageName: string): boolean {
-  // Only relevant for Linux
+  // Only relevant for Linux - check early to avoid unnecessary work
   if (process.platform !== 'linux') return true;
-
-  // Modern Node: run detect-libc directly
-  if (major >= 4) {
-    if (!detectLibc) detectLibc = _require('detect-libc');
-
-    // Extract libc suffix from package name
-    var match = packageName.match(/-(gnu|gnueabihf|musl)$/);
-    if (!match) return true; // No libc suffix, allow it
-
-    var pkgLibc = match[1];
-    var systemLibc = detectLibc.familySync(); // 'glibc' or 'musl' or null
-
-    // If we can't detect system libc, allow the package (be permissive)
-    if (!systemLibc) return true;
-
-    // Check if package libc matches system libc
-    if (pkgLibc === 'gnu' || pkgLibc === 'gnueabihf') {
-      return systemLibc === 'glibc';
-    }
-    if (pkgLibc === 'musl') {
-      return systemLibc === 'musl';
-    }
-
-    return true;
-  }
-
-  // Old Node (0.x): call this same file via function-exec-sync in newer Node
-  if (!functionExec) functionExec = _require('function-exec-sync');
-  return functionExec({ callbacks: true }, workerPath, packageName) as boolean;
+  return worker(packageName) as boolean;
 }
