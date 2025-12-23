@@ -34,8 +34,10 @@ function run(packageName: string): boolean {
   return true;
 }
 
+type matchesLibcFunction = (packageName: string) => boolean;
+
 // spawnOptions: false - no node/npm spawn (library call only)
-const worker = major >= 4 ? run : bindSync('>=4', workerPath, { spawnOptions: false });
+const worker = (major >= 4 ? run : bindSync('>=4', workerPath, { spawnOptions: false })) as matchesLibcFunction;
 
 /**
  * Check if a package name's libc suffix matches the system's libc.
