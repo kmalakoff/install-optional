@@ -10,16 +10,17 @@ const __dirname = path.dirname(typeof __filename !== 'undefined' ? __filename : 
 const isWindows = process.platform === 'win32' || /^(msys|cygwin)$/.test(process.env.OSTYPE || '');
 const major = +process.versions.node.split('.')[0];
 
-type WorkerCallback = (err: Error | null, result?: unknown) => void;
+type WorkerCallback = (err?: Error | null, result?: unknown) => void;
+type ExecFn = (options: unknown, workerPath: string, installString: string, nodeModules: string) => unknown;
 
 // Worker MUST always load from dist/cjs/ for old Node compatibility
 const workerPath = path.join(__dirname, '..', '..', 'cjs', 'workers', 'installModule.js');
 
 let execPath: string | null = null;
-let functionExec = null; // break dependencies
+let functionExec: ExecFn | null = null; // break dependencies
 export default function worker(installString: string, nodeModules: string, callback: WorkerCallback): void {
   if (major > 10) {
-    installModule(installString, nodeModules, callback);
+    installModule(installString, nodeModules, (err, result) => callback(err, result));
     return;
   }
 
@@ -36,7 +37,7 @@ export default function worker(installString: string, nodeModules: string, callb
     if (!functionExec) functionExec = _require('function-exec-sync');
     const installPath = isWindows ? path.join(execPath, '..') : path.join(execPath, '..', '..');
     const options = spawnOptions(installPath, { execPath, callbacks: true } as Parameters<typeof spawnOptions>[1]);
-    const res = functionExec(options, workerPath, installString, nodeModules);
+    const res = functionExec?.(options, workerPath, installString, nodeModules);
     callback(null, res);
   } catch (err) {
     callback(err as Error);

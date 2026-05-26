@@ -56,6 +56,7 @@
   "devDependencies": {
     "@types/mocha": "*",
     "@types/node": "*",
+    "@types/resolve": "^1.20.6",
     "mkdirp-classic": "^0.5.2",
     "node-version-use": "*",
     "pinkie-promise": "*",
