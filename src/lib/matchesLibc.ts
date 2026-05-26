@@ -18,7 +18,7 @@ function run(packageName: string): boolean {
   if (!match) return true; // No libc suffix, allow it
 
   const pkgLibc = match[1];
-  const systemLibc = detectLibc.familySync(); // 'glibc' or 'musl' or null
+  const systemLibc = detectLibc?.familySync(); // 'glibc' or 'musl' or null
 
   // If we can't detect system libc, allow the package (be permissive)
   if (!systemLibc) return true;

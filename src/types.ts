@@ -11,4 +11,4 @@ export interface InstallOptions {
   filter?: FilterFunction;
 }
 
-export type InstallCallback = (err?: Error) => void;
+export type InstallCallback = (err?: Error | null) => void;
