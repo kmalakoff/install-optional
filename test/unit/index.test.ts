@@ -11,7 +11,7 @@ const __dirname = path.dirname(typeof __filename !== 'undefined' ? __filename : 
 const TMP_DIR = path.join(__dirname, '..', '..', '.tmp');
 const cwd = process.cwd();
 
-function installModule(name, dest, callback) {
+function installModule(name: string, dest: string, callback: (err?: Error | null, installedAt?: string) => void) {
   mkdirp.sync(dest);
   fs.writeFileSync(path.join(dest, 'package.json'), '{}', 'utf8');
   npmInstall(name, dest, callback);
