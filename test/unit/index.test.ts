@@ -1,6 +1,6 @@
 import assert from 'assert';
 import fs from 'fs';
-import { install as npmInstall } from 'install-module-linked';
+import { install as npmInstall } from 'install-module-linked-compat';
 import { install, installSync, removeSync } from 'install-optional';
 import mkdirp from 'mkdirp-classic';
 import path from 'path';
@@ -14,7 +14,7 @@ const cwd = process.cwd();
 function installModule(name: string, dest: string, callback: (err?: Error | null, installedAt?: string) => void) {
   mkdirp.sync(dest);
   fs.writeFileSync(path.join(dest, 'package.json'), '{}', 'utf8');
-  npmInstall(name, dest, callback);
+  npmInstall(name, dest, {}, callback);
 }
 
 describe('install-optional', () => {

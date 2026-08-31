@@ -1,16 +1,7 @@
-import fs from 'fs';
 import { safeRmSync } from 'fs-remove-compat';
 import path from 'path';
+import { existsSync } from './compat.ts';
 import find from './lib/find.ts';
-
-const existsSync = (test: string): boolean => {
-  try {
-    (fs.accessSync || fs.statSync)(test);
-    return true;
-  } catch (_) {
-    return false;
-  }
-};
 
 import type { InstallOptions } from './types.ts';
 
