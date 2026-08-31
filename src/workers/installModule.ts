@@ -1,4 +1,4 @@
-import installModule from 'install-module-linked';
+import installModule from 'install-module-linked-compat';
 import Module from 'module';
 import { spawnOptions } from 'node-version-utils';
 import path from 'path';
