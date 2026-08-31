@@ -1,1 +1,1 @@
-ignores: ["node-version-use", "ts-dev-stack", "install-optional", "function-exec-sync", "node-exec-path", "detect-libc"]
+ignores: ["install-optional", "node-version-use", "ts-dev-stack", "function-exec-sync", "node-exec-path", "detect-libc"]
