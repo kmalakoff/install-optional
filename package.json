@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "function-exec-sync": "^1.2.19",
-    "install-module-linked": "^1.1.61",
+    "install-module-linked": "^1.1.62",
     "node-exec-path": "^1.0.28",
     "node-version-utils": "^1.2.14",
     "queue-cb": "^1.4.16",
