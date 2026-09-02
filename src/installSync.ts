@@ -3,7 +3,7 @@ import { sync as installModuleSync } from 'install-module-linked';
 import path from 'path';
 import find from './lib/find.ts';
 
-const existsSync = (test) => {
+const existsSync = (test: string): boolean => {
   try {
     (fs.accessSync || fs.statSync)(test);
     return true;
