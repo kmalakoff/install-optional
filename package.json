@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "install-module-linked": "^1.1.49",
-    "queue-cb": "^1.4.14",
+    "queue-cb": "^1.4.15",
     "resolve": "^1.22.10"
   },
   "devDependencies": {
