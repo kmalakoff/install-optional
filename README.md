@@ -1,18 +1,26 @@
-## install-optional
+# install-optional
 
 Install and remove optional dependencies
 
-```typescript
-import { install, installSync, removeSync } from 'install-optional';
+```sh
+npm install install-optional
+```
 
-// removes all optional dependencies with @esbuild/ in their name
-removeSync('esbuild', '@esbuild/');
+In a CommonJS `.cjs` file:
 
-// removes all optional dependencies for this platform - sync
-installSync('esbuild', `${process.platform}-${process.arch}`);
+```js
+var optional = require('install-optional');
 
-// removes all optional dependencies for this platform - async
-await install('esbuild', `${process.platform}-${process.arch}`)
+// Remove optional dependencies with @esbuild/ in their name.
+optional.removeSync('esbuild', '@esbuild/');
+
+// Install optional dependencies for this platform synchronously.
+optional.installSync('esbuild', process.platform + '-' + process.arch);
+
+// Install optional dependencies for this platform asynchronously.
+optional.install('esbuild', process.platform + '-' + process.arch, function (err) {
+  if (err) throw err;
+});
 ```
 
 ### Documentation
